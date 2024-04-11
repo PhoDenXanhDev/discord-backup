@@ -10,7 +10,7 @@ import type {
 } from './types';
 import type { CategoryChannel, Collection, Guild, GuildChannel, Snowflake, TextChannel, ThreadChannel, VoiceChannel } from 'discord.js';
 import { ChannelType } from 'discord.js';
-import nodeFetch from 'node-fetch';
+import axios from 'axios';
 import { fetchChannelPermissions, fetchTextChannelData, fetchVoiceChannelData } from './util';
 import { MemberData } from './types/MemberData';
 
@@ -90,9 +90,9 @@ export async function getEmojis(guild: Guild, options: CreateOptions) {
             name: emoji.name
         };
         if (options.saveImages && options.saveImages === 'base64') {
-            eData.base64 = (await nodeFetch(emoji.imageURL()).then((res) => res.buffer())).toString('base64');
+            eData.base64 = (await axios.get(emoji.url).then((res) => res.data.buffer())).toString('base64');
         } else {
-            eData.url = emoji.imageURL();
+            eData.url = emoji.url;
         }
         emojis.push(eData);
     });

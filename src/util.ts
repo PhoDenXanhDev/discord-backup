@@ -32,7 +32,7 @@ import {
     OverwriteType,
     AttachmentBuilder
 } from 'discord.js';
-import nodeFetch from 'node-fetch';
+import axios from 'axios';
 
 const MaxBitratePerTier: Record<GuildPremiumTier, number> = {
     [GuildPremiumTier.None]: 64000,
@@ -104,7 +104,7 @@ export async function fetchChannelMessages (channel: TextChannel | NewsChannel |
                 let attach = a.url
                 if (a.url && ['png', 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'].includes(a.url)) {
                     if (options.saveImages && options.saveImages === 'base64') {
-                        attach = (await (nodeFetch(a.url).then((res) => res.buffer()))).toString('base64')
+                        attach = (await (axios.get(a.url).then((res) => res.data.buffer()))).toString('base64')
                     }
                 }
                 return {

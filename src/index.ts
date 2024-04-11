@@ -2,7 +2,7 @@ import type { BackupData, BackupInfos, CreateOptions, LoadOptions } from './type
 import type { Guild } from 'discord.js';
 import { SnowflakeUtil, IntentsBitField } from 'discord.js';
 
-import nodeFetch from 'node-fetch';
+import axios from 'axios';
 import { sep } from 'path';
 
 import { existsSync, mkdirSync, statSync, unlinkSync } from 'fs';
@@ -102,14 +102,14 @@ export const create = async (
             if (guild.iconURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
                     backupData.iconBase64 = (
-                        await nodeFetch(guild.iconURL()).then((res) => res.buffer())
+                        await axios.get(guild.iconURL()).then((res) => res.data.buffer())
                     ).toString('base64');
                 }
                 backupData.iconURL = guild.iconURL();
             }
             if (guild.splashURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
-                    backupData.splashBase64 = (await nodeFetch(guild.splashURL()).then((res) => res.buffer())).toString(
+                    backupData.splashBase64 = (await axios.get(guild.splashURL()).then((res) => res.data.buffer())).toString(
                         'base64'
                     );
                 }
@@ -117,7 +117,7 @@ export const create = async (
             }
             if (guild.bannerURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
-                    backupData.bannerBase64 = (await nodeFetch(guild.bannerURL()).then((res) => res.buffer())).toString(
+                    backupData.bannerBase64 = (await axios.get(guild.bannerURL()).then((res) => res.data.buffer())).toString(
                         'base64'
                     );
                 }
