@@ -21,7 +21,7 @@ Discord Backup is a powerful [Node.js](https://nodejs.org) module that allows yo
 ## Installation
 
 ```js
-npm install --save discord-backup
+npm install --save pdx-backup
 ```
 
 ## Examples

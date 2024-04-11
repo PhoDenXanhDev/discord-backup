@@ -1,7 +1,7 @@
 {
-  "name": "discord-backup",
-  "version": "3.3.2",
-  "description": "A complete framework to facilitate server backup using discord.js v12",
+  "name": "pdx-backup",
+  "version": "0.0.1-beta-fix",
+  "description": "A complete framework to facilitate server backup using discord.js v14 forked from discord-backup (by androz2091)",
   "main": "lib/index.js",
   "files": [
     "lib/**/*"
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Androz2091/discord-backup.git"
+    "url": "git+https://github.com/PhoDenXanhDev/discord-backup.git"
   },
   "keywords": [
     "discord",
@@ -24,19 +24,18 @@
     "bot",
     "discord-backup"
   ],
-  "author": "Androz2091",
+  "author": "PhoDenXanhDev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Androz2091/discord-backup/issues"
+    "url": "https://github.com/PhoDenXanhDev/discord-backup/issues"
   },
-  "homepage": "https://github.com/Androz2091/discord-backup#readme",
+  "homepage": "https://github.com/PhoDenXanhDev/discord-backup/blob/master/README.md",
   "dependencies": {
     "axios": "^1.6.8",
     "discord.js": "^14.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "@types/node-fetch": "^2.5.7",
     "prettier": "^2.0.4",
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
