@@ -64,6 +64,7 @@ export async function getRoles(guild: Guild) {
         .sort((a, b) => b.position - a.position)
         .forEach((role) => {
             const roleData = {
+                id: role.id,
                 name: role.name,
                 color: role.hexColor,
                 hoist: role.hoist,
