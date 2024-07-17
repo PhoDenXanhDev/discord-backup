@@ -59,7 +59,7 @@ export async function getMembers(guild: Guild) {
  */
 export async function getRoles(guild: Guild) {
     const roles: RoleData[] = [];
-    guild.roles.cache
+    await guild.roles.fetch()
         .filter((role) => !role.managed)
         .sort((a, b) => b.position - a.position)
         .forEach((role) => {
@@ -86,7 +86,8 @@ export async function getRoles(guild: Guild) {
  */
 export async function getEmojis(guild: Guild, options: CreateOptions) {
     const emojis: EmojiData[] = [];
-    guild.emojis.cache.forEach(async (emoji) => {
+    const data = await guild.emojis.fetch()
+    data.forEach(async (emoji) => {
         const eData: EmojiData = {
             name: emoji.name
         };
