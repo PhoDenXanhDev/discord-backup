@@ -8,7 +8,16 @@ import type {
     TextChannelData,
     VoiceChannelData
 } from './types';
-import type { CategoryChannel, Collection, Guild, GuildChannel, Snowflake, TextChannel, ThreadChannel, VoiceChannel } from 'discord.js';
+import type {
+    CategoryChannel,
+    Collection,
+    Guild,
+    GuildChannel,
+    Snowflake,
+    TextChannel,
+    ThreadChannel,
+    VoiceChannel
+} from 'discord.js';
 import { ChannelType } from 'discord.js';
 import axios from 'axios';
 import { fetchChannelPermissions, fetchTextChannelData, fetchVoiceChannelData } from './util';
@@ -59,12 +68,11 @@ export async function getMembers(guild: Guild) {
  */
 export async function getRoles(guild: Guild) {
     const roles: RoleData[] = [];
-    await guild.roles.fetch()
-        .filter((role) => !role.managed)
+    const data = await guild.roles.fetch();
+    data.filter((role) => !role.managed)
         .sort((a, b) => b.position - a.position)
         .forEach((role) => {
             const roleData = {
-                id: role.id,
                 name: role.name,
                 color: role.hexColor,
                 hoist: role.hoist,
@@ -86,13 +94,15 @@ export async function getRoles(guild: Guild) {
  */
 export async function getEmojis(guild: Guild, options: CreateOptions) {
     const emojis: EmojiData[] = [];
-    const data = await guild.emojis.fetch()
+    const data = await guild.emojis.fetch();
     data.forEach(async (emoji) => {
         const eData: EmojiData = {
             name: emoji.name
         };
         if (options.saveImages && options.saveImages === 'base64') {
-            eData.base64 = (await axios.get(emoji.url).then((res) => res.data.buffer())).toString('base64');
+            eData.base64 = (await axios.get(emoji.url).then((res) => Buffer.from(res.data, 'base64'))).toString(
+                'base64'
+            );
         } else {
             eData.url = emoji.url;
         }
@@ -114,8 +124,10 @@ export async function getChannels(guild: Guild, options: CreateOptions) {
             others: []
         };
         // Gets the list of the categories and sort them by position
-        const categories = (guild.channels.cache
-            .filter((ch) => ch.type === ChannelType.GuildCategory) as Collection<Snowflake, CategoryChannel>)
+        const categories = (guild.channels.cache.filter((ch) => ch.type === ChannelType.GuildCategory) as Collection<
+            Snowflake,
+            CategoryChannel
+        >)
             .sort((a, b) => a.position - b.position)
             .toJSON() as CategoryChannel[];
         for (const category of categories) {
@@ -139,12 +151,17 @@ export async function getChannels(guild: Guild, options: CreateOptions) {
             channels.categories.push(categoryData); // Update channels object
         }
         // Gets the list of the other channels (that are not in a category) and sort them by position
-        const others = (guild.channels.cache
-            .filter((ch) => {
-                return !ch.parent && ch.type !== ChannelType.GuildCategory
-                    //&& ch.type !== 'GUILD_STORE' // there is no way to restore store channels, ignore them
-                    && ch.type !== ChannelType.GuildNewsThread && ch.type !== ChannelType.GuildPrivateThread && ch.type !== ChannelType.GuildPublicThread // threads will be saved with fetchTextChannelData
-            }) as Collection<Snowflake, Exclude<GuildChannel, ThreadChannel>>)
+
+        const others = (guild.channels.cache.filter((ch) => {
+            return (
+                !ch.parent &&
+                ch.type !== ChannelType.GuildCategory &&
+                //&& ch.type !== 'GUILD_STORE' // there is no way to restore store channels, ignore them
+                ch.type !== ChannelType.GuildNewsThread &&
+                ch.type !== ChannelType.GuildPrivateThread &&
+                ch.type !== ChannelType.GuildPublicThread
+            ); // threads will be saved with fetchTextChannelData
+        }) as Collection<Snowflake, Exclude<GuildChannel, ThreadChannel>>)
             .sort((a, b) => a.position - b.position)
             .toJSON();
         for (const channel of others) {

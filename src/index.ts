@@ -75,9 +75,8 @@ export const create = async (
     }
 ) => {
     return new Promise<BackupData>(async (resolve, reject) => {
-
-       const intents = new IntentsBitField(guild.client.options.intents);
-       if (!intents.has(IntentsBitField.Flags.Guilds)) return reject('Guilds intent is required');
+        const intents = new IntentsBitField(guild.client.options.intents);
+        if (!intents.has(IntentsBitField.Flags.Guilds)) return reject('Guilds intent is required');
 
         try {
             const backupData: BackupData = {
@@ -102,24 +101,24 @@ export const create = async (
             if (guild.iconURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
                     backupData.iconBase64 = (
-                        await axios.get(guild.iconURL()).then((res) => res.data.buffer())
+                        await axios.get(guild.iconURL()).then((res) => Buffer.from(res.data, 'base64'))
                     ).toString('base64');
                 }
                 backupData.iconURL = guild.iconURL();
             }
             if (guild.splashURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
-                    backupData.splashBase64 = (await axios.get(guild.splashURL()).then((res) => res.data.buffer())).toString(
-                        'base64'
-                    );
+                    backupData.splashBase64 = (
+                        await axios.get(guild.splashURL()).then((res) => Buffer.from(res.data, 'base64'))
+                    ).toString('base64');
                 }
                 backupData.splashURL = guild.splashURL();
             }
             if (guild.bannerURL()) {
                 if (options && options.saveImages && options.saveImages === 'base64') {
-                    backupData.bannerBase64 = (await axios.get(guild.bannerURL()).then((res) => res.data.buffer())).toString(
-                        'base64'
-                    );
+                    backupData.bannerBase64 = (
+                        await axios.get(guild.bannerURL()).then((res) => Buffer.from(res.data, 'base64'))
+                    ).toString('base64');
                 }
                 backupData.bannerURL = guild.bannerURL();
             }
