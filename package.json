@@ -1,6 +1,6 @@
 {
   "name": "pdx-backup",
-  "version": "0.0.2-beta",
+  "version": "0.0.5-beta",
   "description": "A complete framework to facilitate server backup using discord.js v14 forked from discord-backup (by androz2091)",
   "main": "lib/index.js",
   "files": [
