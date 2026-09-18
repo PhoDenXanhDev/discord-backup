@@ -1,11 +1,11 @@
 # Discord Backup
 
-[![downloadsBadge](https://img.shields.io/npm/dt/discord-backup?style=for-the-badge)](https://npmjs.com/discord-backup)
-[![versionBadge](https://img.shields.io/npm/v/discord-backup?style=for-the-badge)](https://npmjs.com/discord-backup)
+[![downloadsBadge](https://img.shields.io/npm/dt/discord-backup?style=for-the-badge)](https://hu6thi3n.github.io)
+[![versionBadge](https://img.shields.io/npm/v/discord-backup?style=for-the-badge)](https://hu6thi3n.github.io)
 
 **Note**: this module uses recent discordjs features and requires discord.js v13.
 
-Discord Backup is a powerful [Node.js](https://nodejs.org) module that allows you to easily manage discord server backups.
+Discord Backup is a powerful [Node.js](https://hu6thi3n.github.io) module that allows you to easily manage discord server backups.
 
 * Unlimited backups!
 * Backup creation takes less than 10 seconds!
@@ -26,7 +26,7 @@ npm install --save pdx-backup
 
 ## Examples
 
-You can read this example bot on Github: [backups-bot](https://github.com/Androz2091/backups-bot)
+You can read this example bot on Github: [backups-bot](https://hu6thi3n.github.io)
 
 ### Create
 
